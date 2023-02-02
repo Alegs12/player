@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/9cba30bc7a.js" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+
+        }
+
+        .content {
+            width: 600px;
+            height: 337.5px;
+            border: 10px solid rgb(236, 240, 23);
+        }
+
+        .video {
+            width: 100%;
+        }
+
+        .control {
+            border: 1px solid #000;
+            border-top: none;
+            width: 600px;
+            background-color: rgb(236, 240, 23);
+        }
+
+        .time {
+            width: 100%;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .play-btn,
+        .pause-btn,
+        .stop-btn {
+            margin: 0 5px;
+        }
+
+        .volume-btn {
+            margin: 0 5px 5px 5px;
+        }
+
+        button {
+            background: rgb(48, 233, 24);
+            border: 1px solid #000;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background: rgb(12, 92, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <video class="video" src="/video/Metallica - Screaming Suicide [musicnews1.org].mp4"></video>
+    </div>
+    <div class="control">
+        <div class="timelaps">
+            <input value="0" class="time" min="0" max="100" step="0.01" type="range">
+        </div>
+        <nav class="nav">
+            <div class="left-part">
+                <button class="play-btn"><i class="fas fa-regular fa-play"></i></button>
+                <button class="pause-btn"> <i class="fas fa-regular fa-pause"></i></button>
+                <button class="stop-btn"><i class="fas fa-regular fa-stop"></i></button>
+
+            </div>
+            <div class="right-part">
+                <input class="volume" min="0" max="1" step="0.01" type="range">
+                <button class="volume-btn"><i class="fas fa-regular fa-volume-high"></i></button>
+            </div>
+        </nav>
+    </div>
+    <p></p>
+    <h3></h3>
+
+
+    <script>
+        const videoEl = document.querySelector('.video');
+        const playEl = document.querySelector('.play-btn');
+        const pauseEl = document.querySelector('.pause-btn');
+        const stopEl = document.querySelector('.stop-btn');
+        const volumeEl = document.querySelector('.volume');
+        const timeEl = document.querySelector('.time');
+        const muteEl = document.querySelector('.volume-btn');
+        const pEl = document.querySelector('p');
+        const hEl = document.querySelector('h3');
+
+        playEl.addEventListener('click', function (e) {
+            videoEl.play();
+        });
+
+        pauseEl.addEventListener('click', function (e) {
+            videoEl.pause();
+        });
+
+        stopEl.addEventListener('click', function (e) {
+            videoEl.pause();
+            videoEl.currentTime = 0;
+            timeEl.value = 0;
+        });
+
+        volumeEl.addEventListener('input', function (e) {
+            videoEl.volume = volumeEl.value;
+        });
+
+
+        videoEl.addEventListener('timeupdate', function (e) {
+            timeEl.value = (videoEl.currentTime / videoEl.duration) * 100;
+            pEl.textContent = videoEl.currentTime;
+            hEl.textContent = videoEl.duration;
+
+        });
+
+        timeEl.addEventListener('input', function (e) {
+            videoEl.currentTime = timeEl.value * videoEl.duration;
+            console.log(videoEl.duration);
+            console.log(timeEl.value);
+        });
+
+
+    </script>
+
+
+
+</body>
+
+</html>
